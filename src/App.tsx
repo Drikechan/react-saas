@@ -1,24 +1,16 @@
 import React from "react";
-import logo from "./logo.svg";
+import { Button } from "antd";
 import "./App.css";
+import { TestFlex } from "./components/index";
+import "tailwindcss/tailwind.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App flex">
+      <Button type="primary">1111</Button>
+      <TestFlex />
+      <div>1</div>
+      <div>2</div>
     </div>
   );
 }
