@@ -1,17 +1,19 @@
 import React from "react";
-import { Button } from "antd";
 import "./App.css";
-import { TestFlex } from "./components/index";
+import { UnauthenticatedApp } from "./views/unauthenticated-app/index";
+import styled from "@emotion/styled";
 
 function App() {
   return (
-    <div className="App flex">
-      <Button type="primary">1111</Button>
-      <TestFlex />
-      <div>1</div>
-      <div>2</div>
-    </div>
+    <Container className="App">
+      <UnauthenticatedApp />
+    </Container>
   );
 }
 
 export default App;
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
