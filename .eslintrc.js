@@ -23,5 +23,6 @@ module.exports = {
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },
     ],
     "@typescript-eslint/ban-ts-comment": "off",
+    "no-debugger": "off",
   },
 };

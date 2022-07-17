@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import "@/assets/styles/common.css";
 import "./index.less";
 import { Button, Form, Input, Tabs } from "antd";
 import { LoginType } from "@/types/login";
+import { login } from "@/api/user";
+
 const { TabPane } = Tabs;
 export function Login() {
+  const [loginDisabled, setLongDisabled] = useState<boolean>(true);
   const onChange = () => {
     console.log(1);
   };
   const handleLogin = (e: Omit<LoginType, "password">) => {
     console.log(e);
+  };
+
+  const handleInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length > 6) {
+      setLongDisabled(false);
+    } else {
+      setLongDisabled(true);
+    }
+  };
+
+  const constructPrefix = (type: string) => {
+    return <img src={require(`@/assets/img/login-${type}.svg`)} />;
+  };
+
+  const handlePasswordLogin = (e: Omit<LoginType, "verificationCode">) => {
+    login({ ...e, applicationId: 1100001 }).then((res) => {
+      console.log(res);
+      const { data, code } = res;
+      console.log(data, code);
+    });
   };
   return (
     <LoginContainer>
@@ -27,31 +50,30 @@ export function Login() {
             <LoginForm className="login-content">
               <Tabs
                 className="login-tabs"
-                defaultActiveKey="1"
+                defaultActiveKey="2"
                 onChange={onChange}
               >
                 <TabPane tab="验证码登录" key="1">
-                  <Form name="verificationCode" onFinish={handleLogin}>
-                    <Form.Item
-                      name={"username"}
-                      label={"手机号："}
-                      rules={[{ required: true, message: "请输入用户名" }]}
-                    >
+                  <Form
+                    name="verificationCode"
+                    onFinish={handleLogin}
+                    labelCol={{ span: 4 }}
+                    wrapperCol={{ span: 20 }}
+                  >
+                    <Form.Item name={"phoneNo"} label={"手机号："}>
                       <Input
-                        placeholder="请输入用户名"
+                        placeholder="请输入手机号"
                         type={"text"}
-                        id={"username"}
+                        id={"phoneNo"}
+                        prefix={constructPrefix("phone")}
                       />
                     </Form.Item>
-                    <Form.Item
-                      name={"verificationCode"}
-                      label={"验证码："}
-                      rules={[{ required: true, message: "请输入验证码" }]}
-                    >
+                    <Form.Item name={"verificationCode"} label={"验证码："}>
                       <Input
                         placeholder="请输入验证码"
                         type={"text"}
                         id={"verificationCode"}
+                        prefix={constructPrefix("password")}
                       />
                     </Form.Item>
                     <Form.Item
@@ -69,7 +91,47 @@ export function Login() {
                   </Form>
                 </TabPane>
                 <TabPane tab="密码登录" key="2">
-                  Content of Tab Pane 2
+                  <Form
+                    name="verificationCode"
+                    onFinish={handlePasswordLogin}
+                    labelCol={{ span: 4 }}
+                    wrapperCol={{ span: 20 }}
+                  >
+                    <Form.Item name={"phoneNo"} label={"手机号："}>
+                      <Input
+                        placeholder="请输入手机号"
+                        type={"text"}
+                        id={"phoneNo"}
+                        prefix={constructPrefix("phone")}
+                      />
+                    </Form.Item>
+                    <Form.Item name={"password"} label={"密码："}>
+                      <Input
+                        placeholder="请输入密码"
+                        type={"password"}
+                        id={"password"}
+                        onChange={handleInputValue}
+                        prefix={constructPrefix("password")}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <LongButton
+                        htmlType={"submit"}
+                        disabled={loginDisabled}
+                        type={"primary"}
+                        block={true}
+                      >
+                        登录
+                      </LongButton>
+                    </Form.Item>
+                  </Form>
                 </TabPane>
               </Tabs>
             </LoginForm>
@@ -140,4 +202,8 @@ const LoginTitleContent = styled.div`
 const LoginForm = styled.div`
   margin-top: 30px;
   min-width: 330px;
+`;
+
+const LongButton = styled(Button)`
+  width: 100%;
 `;
