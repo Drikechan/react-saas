@@ -24,5 +24,7 @@ module.exports = {
     ],
     "@typescript-eslint/ban-ts-comment": "off",
     "no-debugger": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-useless-return": "off",
   },
 };

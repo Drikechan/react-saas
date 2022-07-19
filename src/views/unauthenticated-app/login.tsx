@@ -5,10 +5,14 @@ import "./index.less";
 import { Button, Form, Input, Tabs } from "antd";
 import { LoginType } from "@/types/login";
 import { login } from "@/api/user";
+import { ResultData } from "@/types";
+import { useNavigate } from "react-router-dom";
+import { HOME_URL } from "@/config/config";
 
 const { TabPane } = Tabs;
 export function Login() {
   const [loginDisabled, setLongDisabled] = useState<boolean>(true);
+  const navigate = useNavigate();
   const onChange = () => {
     console.log(1);
   };
@@ -29,10 +33,12 @@ export function Login() {
   };
 
   const handlePasswordLogin = (e: Omit<LoginType, "verificationCode">) => {
-    login({ ...e, applicationId: 1100001 }).then((res) => {
-      console.log(res);
+    login({ ...e, applicationId: 1100001 }).then((res: ResultData) => {
       const { data, code } = res;
       console.log(data, code);
+      if (code !== 200) return;
+      window.sessionStorage.setItem("token", data.accessToken);
+      navigate(HOME_URL);
     });
   };
   return (
