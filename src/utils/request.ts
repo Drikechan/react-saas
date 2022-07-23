@@ -6,10 +6,13 @@ import axios, {
   AxiosResponse,
 } from "axios";
 import Nprogress from "@/config/nprogress";
-import { FullPageLoading } from "@/libs/index";
 import { ContentTypeEnum } from "@/enums";
 import { checkStatus } from "@/helper/checkStatus";
 import { ResultData } from "@/types";
+import {
+  hideFullScreenLoading,
+  showFullScreenLoading,
+} from "@/config/ServiceLoading";
 
 const baseURL = location.origin;
 
@@ -32,8 +35,8 @@ class RequestHttp {
           window.location.href = `${window.location.origin}${window.location.pathname}#/login`;
           return config;
         }
+        config.headers!.noLoading || showFullScreenLoading({ spinning: true });
         if (token && config.headers) {
-          FullPageLoading({ spinning: true });
           config.headers.Authorization = "Bearer" + token;
           config.headers["Content-Type"] = ContentTypeEnum.JSON;
         }
@@ -48,6 +51,7 @@ class RequestHttp {
       (response: AxiosResponse) => {
         Nprogress.done();
         const { data } = response;
+        hideFullScreenLoading();
         if (data.code === 200) {
           return Promise.resolve(response.data);
         } else if ([40060, 40061].includes(data.code)) {

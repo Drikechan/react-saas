@@ -82,17 +82,10 @@ export function Login() {
                         prefix={constructPrefix("password")}
                       />
                     </Form.Item>
-                    <Form.Item
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Button htmlType={"submit"} type={"primary"}>
+                    <Form.Item className="login-button">
+                      <LongButton htmlType={"submit"} type={"primary"}>
                         登录
-                      </Button>
+                      </LongButton>
                     </Form.Item>
                   </Form>
                 </TabPane>
@@ -120,14 +113,7 @@ export function Login() {
                         prefix={constructPrefix("password")}
                       />
                     </Form.Item>
-                    <Form.Item
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
+                    <Form.Item className="login-button">
                       <LongButton
                         htmlType={"submit"}
                         disabled={loginDisabled}

@@ -1,3 +1,12 @@
+import { Loading } from "@/components/Loading";
+import { showFullScreenLoading } from "@/config/ServiceLoading";
+
 export function DeviceVehicle() {
-  return <div>车辆</div>;
+  showFullScreenLoading({ spinning: true });
+  return (
+    <div>
+      车辆
+      <Loading spinning={true} />
+    </div>
+  );
 }
