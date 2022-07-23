@@ -13,8 +13,11 @@ import {
   hideFullScreenLoading,
   showFullScreenLoading,
 } from "@/config/ServiceLoading";
+import { AxiosCancel } from "@/helper/axiosCancel";
 
 const baseURL = location.origin;
+
+const axiosCanceler = new AxiosCancel();
 
 const config = {
   baseURL: `${baseURL}/api`,
@@ -30,6 +33,7 @@ class RequestHttp {
     this.service.interceptors.request.use(
       (config: AxiosRequestConfig) => {
         Nprogress.start();
+        axiosCanceler.addPending(config);
         const token = window.sessionStorage.getItem("token");
         if (!token && location.hash !== "#/login") {
           window.location.href = `${window.location.origin}${window.location.pathname}#/login`;
@@ -51,6 +55,7 @@ class RequestHttp {
       (response: AxiosResponse) => {
         Nprogress.done();
         const { data } = response;
+        axiosCanceler.removePending(config);
         hideFullScreenLoading();
         if (data.code === 200) {
           return Promise.resolve(response.data);
@@ -63,6 +68,8 @@ class RequestHttp {
       },
       (error) => {
         const { response } = error;
+        Nprogress.done();
+        hideFullScreenLoading();
         if (response) return checkStatus(response.status);
         if (error.response?.status === 401) {
           window.location.href = `${window.location.origin}${window.location.pathname}#/login`;
