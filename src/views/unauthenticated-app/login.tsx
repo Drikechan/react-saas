@@ -13,9 +13,6 @@ const { TabPane } = Tabs;
 export function Login() {
   const [loginDisabled, setLongDisabled] = useState<boolean>(true);
   const navigate = useNavigate();
-  const onChange = () => {
-    console.log(1);
-  };
   const handleLogin = (e: Omit<LoginType, "password">) => {
     console.log(e);
   };
@@ -28,9 +25,9 @@ export function Login() {
     }
   };
 
-  const constructPrefix = (type: string) => {
-    return <img src={require(`@/assets/img/login-${type}.svg`)} />;
-  };
+  const constructPrefix = (type: string) => (
+    <img src={require(`@/assets/img/login-${type}.svg`)} />
+  );
 
   const handlePasswordLogin = (e: Omit<LoginType, "verificationCode">) => {
     login({ ...e, applicationId: 1100001 }).then((res: ResultData) => {
@@ -48,17 +45,13 @@ export function Login() {
           <LoginBgImg src={require("@/assets/login/login_bg.png")} alt="" />
         </LoginLeftLayout>
         <LoginRightLayout>
-          <div className="w-100 p-10">
+          <div className="w-100">
             <LoginRightTitle>
               <LoginTitleTop>欢迎登录</LoginTitleTop>
               <LoginTitleContent>智电运营管理平台</LoginTitleContent>
             </LoginRightTitle>
             <LoginForm className="login-content">
-              <Tabs
-                className="login-tabs"
-                defaultActiveKey="2"
-                onChange={onChange}
-              >
+              <Tabs className="login-tabs" defaultActiveKey="2">
                 <TabPane tab="验证码登录" key="1">
                   <Form
                     name="verificationCode"
@@ -172,6 +165,7 @@ const LoginRightLayout = styled.div`
 const LoginRightTitle = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 10%;
 `;
 
 const LoginTitleTop = styled.div`
@@ -194,6 +188,7 @@ const LoginTitleContent = styled.div`
 const LoginForm = styled.div`
   margin-top: 30px;
   min-width: 330px;
+  padding: 0 10%;
 `;
 
 const LongButton = styled(Button)`
