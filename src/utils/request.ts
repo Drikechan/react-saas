@@ -14,6 +14,8 @@ import {
   showFullScreenLoading,
 } from "@/config/ServiceLoading";
 import { AxiosCancel } from "@/helper/axiosCancel";
+import { store } from "@/store";
+import { setToken } from "@/store/modules/global/action";
 
 const baseURL = location.origin;
 
@@ -34,7 +36,7 @@ class RequestHttp {
       (config: AxiosRequestConfig) => {
         Nprogress.start();
         axiosCanceler.addPending(config);
-        const token = window.sessionStorage.getItem("token");
+        const token: string = store.getState().global.token;
         if (!token && location.hash !== "#/login") {
           window.location.href = `${window.location.origin}${window.location.pathname}#/login`;
           return config;
@@ -72,6 +74,7 @@ class RequestHttp {
         hideFullScreenLoading();
         if (response) return checkStatus(response.status);
         if (error.response?.status === 401) {
+          store.dispatch(setToken(""));
           window.location.href = `${window.location.origin}${window.location.pathname}#/login`;
           return;
         }

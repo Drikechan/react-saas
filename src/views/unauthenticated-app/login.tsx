@@ -8,6 +8,8 @@ import { login } from "@/api/user";
 import { ResultData } from "@/types";
 import { useNavigate } from "react-router-dom";
 import { HOME_URL } from "@/config/config";
+import { store } from "@/store";
+import { setToken } from "@/store/modules/global/action";
 
 const { TabPane } = Tabs;
 export function Login() {
@@ -34,7 +36,8 @@ export function Login() {
       const { data, code } = res;
       console.log(data, code);
       if (code !== 200) return;
-      window.sessionStorage.setItem("token", data.accessToken);
+      // window.sessionStorage.setItem("token", data.accessToken);
+      store.dispatch(setToken(data.accessToken));
       navigate(HOME_URL);
     });
   };

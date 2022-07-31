@@ -1,18 +1,19 @@
 import { RouterOptionType } from "@/types/router";
 import { UnauthenticatedApp } from "@/views/unauthenticated-app";
 import { Navigate, useRoutes } from "react-router-dom";
-import { homeRouter } from "./modules/home";
-import { errorRouter } from "./modules/error";
 // 导入所有路由
-// const metaRouters = require.context("@/routers/modules", false, /\.tsx$/);
+const childRoutes = ((r) =>
+  r.keys().map((key) => r(key)[Object.keys(r(key))[0]]))(
+  require.context("./modules", true, /\.tsx$/)
+);
+const metaRouters = childRoutes.flat(Infinity);
 
 export const rootRouter: RouterOptionType[] = [
   {
     path: "/",
     element: <Navigate to="/login" />,
   },
-  ...homeRouter,
-  ...errorRouter,
+  ...metaRouters,
   {
     path: "/login",
     element: <UnauthenticatedApp />,
