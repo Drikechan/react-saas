@@ -24,8 +24,7 @@ const persistConfig = {
 const persistReducerConfig = persistReducer(persistConfig, reducer);
 
 // 开启react-devtools
-const composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // 使用 redux 中间件
 const middleWares = applyMiddleware(reduxThunk, reduxPromise);
