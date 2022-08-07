@@ -22,16 +22,19 @@ export const LayoutMenu = () => {
       icon,
     } as MenuItem;
   };
+  // 获取当前路径
   const { pathname } = useLocation();
   const [menuList, setMenuList] = useState<MenuItem[]>([]);
 
+  // 展开菜单
   const [openKeys, setOpenKeys] = useState<string[]>([]);
+  // 选中的菜单
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
   useEffect(() => {
     setSelectedKeys([pathname]);
   }, [pathname]);
-  console.log(selectedKeys);
 
+  // 处理接口返回的参数与Menu组件所需要的参数保持一致
   const deepLoopFloat = (menuList: MenuList[], options: MenuItem[] = []) => {
     menuList.map((item: MenuList) => {
       if (item.type === "button" || !item.type) return;
@@ -61,8 +64,11 @@ export const LayoutMenu = () => {
       console.log(1);
     }
   };
+
+  // 初始化获取菜单函数
   useMount(() => getMenuData());
 
+  // 保持只有一个菜单展开
   const onOpenChange = (openKeys: string[]) => {
     if (getArgsLength(openKeys, 0) || getArgsLength(openKeys, 1))
       return setOpenKeys(openKeys);
@@ -72,6 +78,8 @@ export const LayoutMenu = () => {
   };
 
   const navigate = useNavigate();
+
+  // 菜单点击到指定路由
   const clickMenu: MenuProps["onClick"] = ({ key }: { key: string }) => {
     navigate(key);
   };
@@ -80,7 +88,7 @@ export const LayoutMenu = () => {
     navigate("/device");
   };
   return (
-    <div>
+    <>
       <div className="title" onClick={toDefaultMenu}>
         SAAS运营管理平台
       </div>
@@ -94,6 +102,6 @@ export const LayoutMenu = () => {
         onOpenChange={onOpenChange}
         onClick={clickMenu}
       />
-    </div>
+    </>
   );
 };
