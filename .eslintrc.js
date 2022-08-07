@@ -26,5 +26,6 @@ module.exports = {
     "no-debugger": "off",
     "react/react-in-jsx-scope": "off",
     "no-useless-return": "off",
+    "array-callback-return": "off",
   },
 };
