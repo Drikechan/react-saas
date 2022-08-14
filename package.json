@@ -20,6 +20,7 @@
     "dayjs": "^1.11.4",
     "immer": "^9.0.15",
     "nprogress": "^0.2.0",
+    "postcss-loader": "^7.0.1",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
