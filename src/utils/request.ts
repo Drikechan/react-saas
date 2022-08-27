@@ -43,7 +43,7 @@ class RequestHttp {
         }
         config.headers!.noLoading || showFullScreenLoading({ spinning: true });
         if (token && config.headers) {
-          config.headers.Authorization = "Bearer" + token;
+          config.headers.Authorization = "Bearer " + token;
           config.headers["Content-Type"] = ContentTypeEnum.JSON;
         }
         return config;
