@@ -90,7 +90,7 @@ export const LayoutMenu = () => {
   return (
     <>
       <div className="title" onClick={toDefaultMenu}>
-        SAAS运营管理平台
+        React
       </div>
       <Menu
         mode={"inline"}

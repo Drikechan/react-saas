@@ -1,6 +1,7 @@
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import global from "./modules/global/reducer";
+import { menu } from "./modules/menu/reducer";
 import {
   applyMiddleware,
   combineReducers,
@@ -14,6 +15,7 @@ import reduxPromise from "redux-promise";
 // 合并多个reducer，返回一个根reducer
 const reducer = combineReducers({
   global,
+  menu,
 });
 
 // 持久化配置

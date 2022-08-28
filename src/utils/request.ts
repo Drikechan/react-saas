@@ -79,7 +79,7 @@ class RequestHttp {
           return;
         }
         const errData = error.response?.data;
-        message.error(errData.message || "请求异常，请稍后再试");
+        message.error(errData?.message || "请求异常，请稍后再试");
         return Promise.reject(error);
       }
     );
