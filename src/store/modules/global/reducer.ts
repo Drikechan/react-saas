@@ -5,6 +5,7 @@ import { AnyAction } from "redux";
 
 const globalState = {
   token: "",
+  assemblySize: "middle",
 };
 
 const global = (state: GlobalState = globalState, action: AnyAction) => {
@@ -12,6 +13,9 @@ const global = (state: GlobalState = globalState, action: AnyAction) => {
     switch (action.type) {
       case types.SET_TOKEN:
         draftState.token = action.token;
+        break;
+      case types.SET_ASSEMBLY_SIZE:
+        draftState.assemblySize = action.assemblySize;
         break;
       default:
         return draftState;

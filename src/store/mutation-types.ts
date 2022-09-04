@@ -6,3 +6,6 @@ export const UPDATE_COLLAPSE = "UPDATE_ASIDE_COLLAPSE";
 
 // 设置菜单list
 export const SET_MENULIST = "SET_MENULIST";
+
+// 设置组件大小
+export const SET_ASSEMBLY_SIZE = "SET_ASSEMBLY_SIZE";

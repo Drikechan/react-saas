@@ -6,6 +6,7 @@ import { MenuList } from "@/types/login";
 import "./index.less";
 import { getArgsLength, useMount } from "@/utils/func";
 import { useLocation, useNavigate } from "react-router-dom";
+import * as Icons from "@ant-design/icons";
 
 export const LayoutMenu = () => {
   type MenuItem = Required<MenuProps>["items"][number];
@@ -34,6 +35,8 @@ export const LayoutMenu = () => {
     setSelectedKeys([pathname]);
   }, [pathname]);
 
+  const addIcon = (icon: string) => React.createElement(Icons[icon]);
+
   // 处理接口返回的参数与Menu组件所需要的参数保持一致
   const deepLoopFloat = (menuList: MenuList[], options: MenuItem[] = []) => {
     menuList.map((item: MenuList) => {
@@ -47,7 +50,8 @@ export const LayoutMenu = () => {
           item.code,
           deepLoopFloat(item.functionCodeVOList).length > 0
             ? deepLoopFloat(item.functionCodeVOList)
-            : undefined
+            : undefined,
+          item.icon && addIcon(item.icon)
         )
       );
     });
@@ -59,6 +63,25 @@ export const LayoutMenu = () => {
     try {
       const { data } = await getRouterList({});
       if (!data) return;
+      const iconList = [
+        "HomeOutlined",
+        "AreaChartOutlined",
+        "TableOutlined",
+        "FundOutlined",
+        "FileTextOutlined",
+        "PieChartOutlined",
+        "ShoppingOutlined",
+        "ProfileOutlined",
+        "ExclamationCircleOutlined",
+        "PaperClipOutlined",
+      ];
+      data.map(
+        (item, index) =>
+          (item.icon =
+            iconList[
+              index > iconList.length - 1 ? iconList.length % index : index
+            ])
+      );
       setMenuList(deepLoopFloat(data));
     } finally {
       console.log(1);

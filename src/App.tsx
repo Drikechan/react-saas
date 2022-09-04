@@ -3,19 +3,24 @@ import "./App.css";
 import styled from "@emotion/styled";
 import { HashRouter } from "react-router-dom";
 import Router from "@/routers/index";
+import { ConfigProvider } from "antd";
+import { connect } from "react-redux";
 
-function App() {
+function App(props: any) {
+  const { assemblySize } = props;
   return (
     <Container className="App">
       <HashRouter>
-        <Router />
+        <ConfigProvider componentSize={assemblySize}>
+          <Router />
+        </ConfigProvider>
       </HashRouter>
       {/* <UnauthenticatedApp /> */}
     </Container>
   );
 }
-
-export default App;
+const mapStateToProps = (state) => state.global;
+export default connect(mapStateToProps)(App);
 
 const Container = styled.div`
   width: 100%;
