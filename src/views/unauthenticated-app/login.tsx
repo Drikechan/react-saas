@@ -49,7 +49,7 @@ export function Login() {
         <LoginRightLayout>
           <div className="w-100">
             <LoginRightTitle>
-              <LoginTitleTop>欢迎登录</LoginTitleTop>
+              <LoginTitleTop>欢迎登录11</LoginTitleTop>
               <LoginTitleContent>智电运营管理平台</LoginTitleContent>
             </LoginRightTitle>
             <LoginForm className="login-content">
